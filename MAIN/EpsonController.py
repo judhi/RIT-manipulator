@@ -25,12 +25,12 @@ def sendToEpson(x, y, robot_z = 850, robot_u = 0):
     print("result:", confirmation)
     sleep(1)
 
-while (True):
-    x_pixels = int(input("Please enter the x pixel coordinate value: "))
-    y_pixels = int(input("Please enter the y pixel coordinate value: "))
+# while (True):
+#     x_pixels = int(input("Please enter the x pixel coordinate value: "))
+#     y_pixels = int(input("Please enter the y pixel coordinate value: "))
 
-    x_robot, y_robot = getRealWorld(x_pixel=x_pixels, y_pixel=y_pixels)
-    sendToEpson(x=x_robot, y=y_robot)
+#     x_robot, y_robot = getRealWorld(x_pixel=x_pixels, y_pixel=y_pixels)
+#     sendToEpson(x=x_robot, y=y_robot)
     
 
 

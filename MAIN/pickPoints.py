@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from getWorldCoordinates import getRealWorld
+from EpsonController import sendToEpson
 import math
 # Load the image
 image = cv2.imread('1.png')
@@ -16,6 +17,9 @@ def pick_points(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         coordinates.append((x, y))
         new_x, new_y = getRealWorld(x, y)
+        sendToEpson(x=new_x, y=new_y)
+
+
         print(f"Pixel coordinates: ({x}, {y})")
 
         font = cv2.FONT_HERSHEY_SIMPLEX
