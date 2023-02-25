@@ -14,7 +14,7 @@ class DetectedObjects():
 
     # Calibration constants
     pixel_cm = 1
-    areaThresh = 500
+    areaThresh = 1250
 
     # Counterclockwise angle of objects from the x-axis
     orientation = 0
@@ -125,6 +125,9 @@ class DetectedObjects():
             self.pixel_cm = 1
         print("Gotten px to cm ratio")
         return self.pixel_cm
+    
+    def sortDetectedObjects(self, list_to_sort):
+        return sorted(list_to_sort, key=lambda x: x.getPickScore((0, 450)))
 
 class PickableObjects():
     # CONSTANT

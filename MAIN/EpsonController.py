@@ -14,10 +14,10 @@ clientSocket.connect(("192.168.150.2",2001)); # this is the EPSON RC7+ simulator
 # so we will keep the z axis the same and only take values for the x and y values
 
 # places = ["100 400 600 0", "0 500 500 0", "-100 600 400 0"]
+DROP_POINT  = "-400 500 800 0"
 
 
-
-def sendToEpson(x, y, robot_z = 850, robot_u = 0):
+def sendToEpson(x = 0, y = 450, robot_z = 850, robot_u = 0):
     coordinates = "JUMP3 " + f"{x} {y} {robot_z} {robot_u}" + "\r\n"
     print (f"Sending to position {x}, {y}")
     clientSocket.send(coordinates.encode())

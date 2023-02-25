@@ -1,10 +1,10 @@
 import cv2
 import numpy as np
 from getWorldCoordinates import getRealWorld
-from EpsonController import sendToEpson
+# from EpsonController import sendToEpson
 import math
 # Load the image
-image = cv2.imread('1.png')
+image = cv2.imread('Object1.png')
 
 # Create a copy of the image to draw circles on
 image_copy = np.copy(image)
@@ -17,7 +17,7 @@ def pick_points(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         coordinates.append((x, y))
         new_x, new_y = getRealWorld(x, y)
-        sendToEpson(x=new_x, y=new_y)
+        # sendToEpson(x=new_x, y=new_y)
 
 
         print(f"Pixel coordinates: ({x}, {y})")

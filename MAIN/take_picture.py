@@ -12,7 +12,7 @@ while(True):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             count += 1
             print("Take a picture")
-            cv2.imwrite(f"{count}.png", frame)
+            cv2.imwrite(f"MAIN/test/Objects{count}.png", frame)
             #break
 
     # if keyboard.is_pressed("a"):
