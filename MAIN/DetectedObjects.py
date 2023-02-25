@@ -15,6 +15,7 @@ class DetectedObjects():
     # Calibration constants
     pixel_cm = 1
     areaThresh = 1250
+    # areaThresh = 20
 
     # Counterclockwise angle of objects from the x-axis
     orientation = 0
@@ -22,11 +23,11 @@ class DetectedObjects():
     def __init__(self, img) -> None:
         self.img = img
         self.gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        self.blur = cv2.GaussianBlur(self.gray, (5, 5), 0)
-        self.filter = cv2.bilateralFilter(self.blur, 9, 75, 75)
+        self.filter = cv2.bilateralFilter(self.gray, 9, 75, 75)
+        self.blur = cv2.GaussianBlur(self.filter, (5, 5), 0)
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
-        erosion = cv2.erode(self.filter, kernel, iterations=6)
-        dilation = cv2.dilate(erosion, kernel, iterations=6)
+        erosion = cv2.erode(self.filter, kernel, iterations=7)
+        dilation = cv2.dilate(erosion, kernel, iterations=7)
         self.edges = cv2.Canny(dilation, 50, 150)
         # Create a Mask with adaptive threshold
         mask = cv2.adaptiveThreshold(
@@ -60,7 +61,8 @@ class DetectedObjects():
                             cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 175, 255), 2)
                 if angle < 0:
                     angle = 90 + angle
-                objects.append(PickableObjects((cx, cy), (int(w / px_cm), int(h / px_cm)), angle, (x, y)))
+                objects.append(PickableObjects(
+                    (cx, cy), (int(w / px_cm), int(h / px_cm)), angle, (x, y)))
                 # objects[f'object {index}'] = {"center_x": cx, "center_y": cy, "bound_x": x,
                 #                               "bound_y": y, "pixel_w": int(w / px_cm), "pixel_h": int(h / px_cm), "angle": angle}
         return objects
@@ -125,9 +127,10 @@ class DetectedObjects():
             self.pixel_cm = 1
         print("Gotten px to cm ratio")
         return self.pixel_cm
-    
+
     def sortDetectedObjects(self, list_to_sort):
         return sorted(list_to_sort, key=lambda x: x.getPickScore((0, 450)))
+
 
 class PickableObjects():
     # CONSTANT
@@ -148,7 +151,8 @@ class PickableObjects():
 
     def getPickScore(self, mLoc):
         # mLoc refers to the position of the manipulator
-        distance = math.dist(mLoc, self.center_point)/self.MAX_DISTANCE * self.DISTANCE_WEIGHT
+        distance = math.dist(mLoc, self.center_point) / \
+            self.MAX_DISTANCE * self.DISTANCE_WEIGHT
         width = (min(self.dimensions)/self.MAX_WIDTH) * self.WIDTH_WEIGHT
         _pickScore = distance + width
         return _pickScore
