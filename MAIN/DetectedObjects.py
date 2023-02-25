@@ -14,7 +14,7 @@ class DetectedObjects():
 
     # Calibration constants
     pixel_cm = 1
-    areaThresh = 1250
+    areaThresh = 1500
     # areaThresh = 20
 
     # Counterclockwise angle of objects from the x-axis
@@ -26,7 +26,7 @@ class DetectedObjects():
         self.filter = cv2.bilateralFilter(self.gray, 9, 75, 75)
         self.blur = cv2.GaussianBlur(self.filter, (5, 5), 0)
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
-        erosion = cv2.erode(self.filter, kernel, iterations=7)
+        erosion = cv2.erode(self.blur, kernel, iterations=7)
         dilation = cv2.dilate(erosion, kernel, iterations=7)
         self.edges = cv2.Canny(dilation, 50, 150)
         # Create a Mask with adaptive threshold
