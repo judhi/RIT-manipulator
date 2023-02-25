@@ -6,7 +6,7 @@ from getWorldCoordinates import getRealWorld
 
 home = "0 "
 
-reference_image = cv2.imread("MAIN/test/Objects1.png")
+reference_image = cv2.imread("MAIN/test/Objects2.png")
 resized_img = cv2.resize(reference_image, (0, 0), fx=0.4, fy=0.4)
 # cropped_img2 = reference_image[80:1300, 140:1000]
 # cv2.imshow("frame", cropped_img2)
@@ -23,7 +23,7 @@ M = cv2.getPerspectiveTransform(src_points, dst_points)
 # output = cv2.warpPerspective(reference_image, M, (1700, 1200))
 
 
-detector = DetectedObjects.DetectedObjects(reference_image)
+detector = DetectedObjects.DetectedObjects(resized_img)
 detector.getCenterPoints()
 object_list = detector.getContours()
 sorted_list = detector.sortDetectedObjects(object_list)
