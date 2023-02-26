@@ -6,7 +6,7 @@ from getWorldCoordinates import getRealWorld
 
 home = "0"
 
-reference_image = cv2.imread("MAIN/test/Objects3.png")
+reference_image = cv2.imread("MAIN/test/Objects4.png")
 resized_img = cv2.resize(reference_image, (0, 0), fx=0.6, fy=0.6)
 
 reference_image = resized_img

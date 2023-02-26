@@ -23,8 +23,8 @@ class DetectedObjects():
     def __init__(self, img) -> None:
         self.img = img
         self.gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        self.filter = cv2.bilateralFilter(self.gray, 10, 55, 55)
-        self.blur = cv2.GaussianBlur(self.filter, (1, 1), 1)
+        self.filter = cv2.bilateralFilter(self.gray, 45, 95, 95)
+        self.blur = cv2.GaussianBlur(self.filter, (5, 5), 1)
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
         erosion = cv2.erode(self.blur, kernel, iterations=7)
         dilation = cv2.dilate(erosion, kernel, iterations=7)
