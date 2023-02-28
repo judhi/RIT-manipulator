@@ -1,7 +1,11 @@
-height of camera from the table: 685mm
+height of camera from the table: 685mm (679mm new!!)
 width of pick up area: 450mm
 height of pick up area: 435mm
 
 width of drop area: 365mm
 height of drop area: 220mm 
 length of drop area: 560mm
+
+Robot Calibration
+Start point: x: -263.416mm(-263mm), y: 386.530mm(386mm), z: 449.663mm(449mm)
+End point: x: 161.412mm, y: 774.994mm, z: 463.139
