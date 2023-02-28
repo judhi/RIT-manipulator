@@ -14,7 +14,7 @@ class DetectedObjects():
 
     # Calibration constants
     pixel_cm = 1
-    areaThresh = 350
+    areaThresh = 1
 
     # areaThresh = 20
 
