@@ -14,7 +14,7 @@ class DetectedObjects():
 
     # Calibration constants
     pixel_cm = 1
-    areaThresh = 1500
+    areaThresh = 350
     # areaThresh = 20
 
     # Counterclockwise angle of objects from the x-axis
@@ -23,9 +23,13 @@ class DetectedObjects():
     def __init__(self, img) -> None:
         self.img = img
         self.gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        self.filter = cv2.bilateralFilter(self.gray, 9, 75, 75)
-        self.blur = cv2.GaussianBlur(self.filter, (5, 5), 0)
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+        gray_norm = cv2.normalize(
+            self.gray, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
+        gray_norm2 = cv2.normalize(
+            gray_norm, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
+        self.blur = cv2.GaussianBlur(gray_norm2, (1, 1), 1)
+        self.filter = cv2.bilateralFilter(self.blur, 10, 55, 55)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
         erosion = cv2.erode(self.filter, kernel, iterations=7)
         dilation = cv2.dilate(erosion, kernel, iterations=7)
         self.edges = cv2.Canny(dilation, 50, 150)
@@ -129,7 +133,11 @@ class DetectedObjects():
         return self.pixel_cm
 
     def sortDetectedObjects(self, list_to_sort):
-        return sorted(list_to_sort, key=lambda x: x.getPickScore((0, 450)))
+        sorted_list = sorted(
+            list_to_sort, key=lambda x: x.getPickScore((0, 450)))
+        # for item in sorted_list:
+        #     frame =
+        # return sorted_list
 
 
 class PickableObjects():

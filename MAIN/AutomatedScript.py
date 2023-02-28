@@ -23,7 +23,7 @@ M = cv2.getPerspectiveTransform(src_points, dst_points)
 # output = cv2.warpPerspective(reference_image, M, (1700, 1200))
 
 
-detector = DetectedObjects.DetectedObjects(reference_image)
+detector = DetectedObjects.DetectedObjects(resized_img)
 detector.getCenterPoints()
 object_list = detector.getContours()
 sorted_list = detector.sortDetectedObjects(object_list)
